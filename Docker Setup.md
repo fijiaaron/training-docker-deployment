@@ -1,22 +1,109 @@
 Docker Setup
 ============
 
-1. Download and install Docker Desktop for your compuer:
+Download & Install Docker Desktop
+---------------------------------
+
+1. Download and install Docker Desktop to your workstation:
+
 https://docs.docker.com/get-docker/
 
+
+Register at Docker hub
+-----------------------
+
 2. Register at Docker hub so you can search for Docker images:
+
 https://hub.docker.com/signup
 
-3. Test docker installation
+
+Test your docker installation
+-----------------------------
+
+	docker version
+
+	docker info
 	
-	`docker version`
+    docker run hello-world
 
-	`docker info`
+
+Register on Docker Hub
+-------------------------
+
+https://hub.docker.com/signup
+
+
+Install a docker image and run it
+---------------------------------
+
+Ubuntu Linux
+
+	docker run -it ubuntu:latest bash
+
+Alpine Linux (a lightweight distrobution)
+
+	docker run -it alpine ash
+
+Command options
+
+	docker run --help
+
+
+Exercise: run a web server 
+--------------------------
+
+	docker pull nginx:latest
+	docker run --name training -v .:/usr/share/nginx/html:ro -p 8888:80 nginx
+
+http://localhost:8888/
+
+
+Creating a Docker image
+-----------------------
+
+Introducing the Dockerfile
+
+	FROM nginx:latest
+	RUN cp src/ /usr/share/nginx/html
+	EXPOSE 80
+
+Create a src folder and add an HTML document:
 	
-	`docker run hello-world`
+	mkdir src
+	echo "<html><body><h1>Hello Docker</h1></body></html>" > src/index.html
+	
+Build your Docker image
 
-3. install a docker image to save on download time (after docker in installed):
-docker pull nginx:latest
+	docker build -t mycontainer .
 
-4. You can also join our slack channel #training-docker-deployment on one-shore.slack.com
-https://one-shore.slack.com/archives/C011JGVEXM2
+Run it 
+
+	docker run mycontainer 
+
+Managing containers and images
+------------------------------
+
+See images
+
+	docker images
+
+See all images
+
+	docker images -a
+
+See running containers
+
+	docker containers ls
+
+Stop a container
+
+	docker stop <container name>
+
+Remove an image
+
+	docker rmi <image>
+
+	docker container ls
+
+
+
